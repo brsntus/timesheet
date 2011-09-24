@@ -1,0 +1,7 @@
+.DS_Store
+/.htaccess
+public/uploads/*
+._*
+config/development.php
+config/config.php
+tmp/

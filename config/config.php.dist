@@ -1,0 +1,26 @@
+<?php
+// DEFAULT ROUTE
+define('DEFAULT_CONTROLLER', 'pages');
+define('DEFAULT_ACTION', 'index');
+
+define('APPLICATION_SALT', 'e8d4a2f731a2b37fcb169639d14ccb9350952d59'); // sha1('change-me')
+
+// SESSION/COOKIE
+ini_set('session.cookie_domain', '.timesheet.dev');
+define('SESSION_TIMEOUT_SHORT', 60*60); // 1 hora
+define('SESSION_TIMEOUT_LONG', 60*60*24*30); // 30 dias
+define('COOKIE_NAME', 'timesheet');
+
+// IMAGES
+$_image_size = array(
+  '30x30' => array('width' => 30, 'height' => 30),
+  '32x32' => array('width' => 32, 'height' => 32),
+  '37x37' => array('width' => 37, 'height' => 37),
+  '45x45' => array('width' => 45, 'height' => 45),
+  '50x50' => array('width' => 50, 'height' => 50),
+  '74x74' => array('width' => 74, 'height' => 74),
+  '100x100' => array('width' => 100, 'height' => 100),
+  '127x127' => array('width' => 127, 'height' => 127),
+  '218x218' => array('width' => 218, 'height' => 218)
+);
+?>

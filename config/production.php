@@ -1,0 +1,40 @@
+<?php
+// APPLICATION
+define('BASE_PATH','http://' . $_SERVER['SERVER_NAME']);
+define('BASE_PATH_INTERNAL', 'http://timesheet.com');
+define('APP_ROOT',substr(dirname($_SERVER['SCRIPT_FILENAME']),0,-7));
+define('DEBUG_ACTIVE', true);
+define('UPLOAD_DIR', ROOT . DS . 'public' . DS . 'uploads' . DS);
+
+// URLS
+define('STATIC_FILES_URL', BASE_PATH);
+define('USERS_DATA_URL', BASE_PATH . "/uploads");
+
+define('DB_MASTER_SLAVE', false);
+
+// DATABASE WRITE (MASTER)
+define('DB_WRITE_TYPE', 'mysql');
+define('DB_WRITE_SERVER', 'localhost');
+define('DB_WRITE_USERNAME', 'root');
+define('DB_WRITE_PASSWORD', 'root');
+define('DB_WRITE_NAME', 'timesheet');
+define('DB_WRITE_PORT', '3306');
+define('DB_WRITE_DEBUG', false);
+define('WRITE_DSN', DB_WRITE_TYPE.'://'.DB_WRITE_USERNAME.':'.DB_WRITE_PASSWORD.'@'.DB_WRITE_SERVER.'/'.DB_WRITE_NAME);
+
+// DATABASE READ (SLAVE)
+define('DB_READ_TYPE', 'mysql');
+define('DB_READ_SERVER', 'localhost');
+define('DB_READ_USERNAME', 'root');
+define('DB_READ_PASSWORD', 'root');
+define('DB_READ_NAME', 'timesheet');
+define('DB_READ_PORT', '3306');
+define('DB_READ_DEBUG', false);
+define('READ_DSN', DB_READ_TYPE.'://'.DB_READ_USERNAME.':'.DB_READ_PASSWORD.'@'.DB_READ_SERVER.'/'.DB_READ_NAME);
+
+// ERROR REPORTING
+error_reporting(E_ALL);
+ini_set('display_errors', 'Off');
+ini_set('log_errors', 'On');
+ini_set('error_log', ROOT . DS . 'tmp' . DS . 'logs' . DS . 'error.log');
+?>

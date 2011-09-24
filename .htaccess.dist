@@ -1,0 +1,28 @@
+# development or production
+SetEnv APPLICATION_ENV development
+
+FileETag none
+
+<FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|swf|mp3|mp4)$">
+  Header set Cache-Control "max-age=2592000"
+  Header unset Last-Modified
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+  RewriteRule ^$ public/ [L]
+  RewriteRule (.*) public/$1 [L]
+</IfModule>
+
+# compress all text and html:
+AddOutputFilterByType DEFLATE text/html text/plain text/xml
+
+<FilesMatch "\.(css)">
+  ForceType application/x-httpd-php
+  php_value auto_prepend_file "/PATH/TO/YOUR/APPLICATION/public/gzip_css.php"
+</FilesMatch>
+
+<FilesMatch "\.(js)">
+  ForceType application/x-httpd-php
+  php_value auto_prepend_file "/PATH/TO/YOUR/APPLICATION/public/gzip_js.php"
+</FilesMatch>
