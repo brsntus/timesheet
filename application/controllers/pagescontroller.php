@@ -4,5 +4,12 @@ class PagesController extends Controller {
     echo $this->render();
   }
   
+  function clock_in() {
+    echo $this->render();
+  }
+  
+  function timesheet() {
+    echo $this->render();
+  }  
 }
 ?>
