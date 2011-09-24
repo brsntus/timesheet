@@ -13,6 +13,5 @@ require_once(ROOT . DS . 'config' . DS . 'css.php');
 require_once(ROOT . DS . 'library' . DS . 'vendor' . DS . 'FirePHP.class.php');
 require_once(ROOT . DS . 'library' . DS . 'vendor' . DS . 'adodb5' . DS . 'adodb.inc.php');
 require_once(ROOT . DS . 'library' . DS . 'vendor' . DS . 'adodb5' . DS . 'adodb-firephp.inc.php');
-require_once(ROOT . DS . 'library' . DS . 'vendor' . DS . 'scripts.php');
 require_once(ROOT . DS . 'library' . DS . 'shared.php');
 ?>
