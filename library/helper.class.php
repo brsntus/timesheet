@@ -1,5 +1,59 @@
 <?php
-class Helper {  
+class Helper {
+  public static function do_login($data, $keep_logged_in = false) {
+    /*Session::set('id', $data['id']);
+    Session::set('name', $data['name']);
+    Session::set('email', $data['email']);
+    Session::set('salt', $data['salt']);*/
+    unset($data['password']);
+    foreach ($data as $key => $value) {
+      Session::set($key, $value);
+    }
+    
+    if ($keep_logged_in)
+      $expire = SESSION_TIMEOUT_LONG + time();
+    else
+      $expire = SESSION_TIMEOUT_SHORT + time();
+
+    setcookie(COOKIE_NAME, $data['salt'], $expire, '/');
+
+    self::redirect('/clock');
+  }
+  
+  public static function do_logout() {
+    Session::destroy();
+    setcookie(COOKIE_NAME, null, 1, '/');
+    self::redirect();
+  }
+  
+  public static function check_salt($salt) {
+    $users = new Users();
+    return $users->check_salt($salt);
+  }
+  
+  public static function check_cookie() {
+    if (isset($_COOKIE[COOKIE_NAME])) {
+      $salt = self::check_salt(strval($_COOKIE[COOKIE_NAME]));
+      if ($salt) {
+        $users = new Users();
+        self::do_login((array)$users->find_by_email($salt), true);
+      }
+    }
+    
+    //return false;
+  }
+  
+  public static function is_logged_in() {
+    if (Session::get('id')) {
+      return true;
+    }
+    return false;
+  }
+  
+  public static function can_edit($id) {
+    return (Session::get('id') == $id);
+  }
+  
   public static function redirect($url = '', $local = true) {
     $url = $local ? BASE_PATH.$url : $url;
     header("Location: {$url}");
@@ -124,6 +178,69 @@ class Helper {
   
   public static function pp($var) {
     echo '<pre>' . print_r($var, true) . '</pre>';
+  }
+  
+  public static function monthly_hours($hours_per_day) {
+    switch ($hours_per_day) {
+      case 6:
+        return 180;
+        break;
+      case 8:
+        return 220;
+        break;
+      default:
+        return false;
+        break;
+    }
+  }
+  
+  public static function days_of_the_week($base_date = false, $format = 'l, d M') {
+    $base_date = $base_date ? $base_date : date('Y-m-d');
+    list($year, $month, $day) = explode('-', $base_date);
+    $week = date('W', mktime(0, 0, 0, $month, $day, $year));
+    $return = array();
+    for ($week_day = 1; $week_day <= 7; $week_day++) {
+      $return[] = date($format, strtotime("{$year}W{$week}{$week_day}"));
+    }
+    return $return;
+  }
+  
+  public static function seconds_to_hours($sec, $padHours = true) {
+    // start with a blank string
+    $hms = "";
+
+    // do the hours first: there are 3600 seconds in an hour, so if we divide
+    // the total number of seconds by 3600 and throw away the remainder, we're
+    // left with the number of hours in those seconds
+    $hours = intval(intval($sec) / 3600); 
+
+    // add hours to $hms (with a leading 0 if asked for)
+    $hms .= ($padHours) 
+          ? str_pad($hours, 2, "0", STR_PAD_LEFT). ":"
+          : $hours. ":";
+
+    // dividing the total seconds by 60 will give us the number of minutes
+    // in total, but we're interested in *minutes past the hour* and to get
+    // this, we have to divide by 60 again and then use the remainder
+    $minutes = intval(($sec / 60) % 60); 
+
+    // add minutes to $hms (with a leading 0 if needed)
+    $hms .= str_pad($minutes, 2, "0", STR_PAD_LEFT). ":";
+
+    // seconds past the minute are found by dividing the total number of seconds
+    // by 60 and using the remainder
+    $seconds = intval($sec % 60); 
+
+    // add seconds to $hms (with a leading 0 if needed)
+    $hms .= str_pad($seconds, 2, "0", STR_PAD_LEFT);
+
+    // done!
+    return $hms;
+  }
+  
+  public static function hours_to_seconds($hours) {
+    list($h, $m, $s) = explode(':', $hours);
+    return ($h*60*60) + ($m*60) + $s;
   }
 }
 ?>

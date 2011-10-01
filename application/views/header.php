@@ -69,28 +69,27 @@
   </head>
 
   <body>
-
     <div class="topbar">
       <div class="fill">
         <div class="container">
-          <a class="brand" href="#">Timesheet</a>
-          <ul class="nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">Clock In/Out</a></li>
-            <li><a href="#contact">Timesheet</a></li>
-            <li><a href="#contact">Reports</a></li>
-            <li><a href="#contact">Manage</a></li>
-          </ul>
-          <ul class="nav secondary-nav">
-            <li class="dropdown" data-dropdown="dropdown">
-              <a href="#" class="dropdown-toggle">Bruno Santos</a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Settings</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Logout</a></li>
-              </ul>
-            </li>
-          </ul>
+          <a class="brand" href="<?=BASE_PATH?>">Timesheet</a>
+          <?php if (Helper::is_logged_in()): ?>
+            <ul class="nav">
+              <li <?=$this->_controller == 'Clock' ? 'class="active"' : ''?>><a href="<?=BASE_PATH?>/clock">Clock In/Out</a></li>
+              <li <?=$this->_controller == 'Timesheet' ? 'class="active"' : ''?>><a href="<?=BASE_PATH?>/timesheet">Timesheet</a></li>
+              <li <?=$this->_controller == 'Reports' ? 'class="active"' : ''?>><a href="<?=BASE_PATH?>/reports">Reports</a></li>
+            </ul>
+            <ul class="nav secondary-nav">
+              <li class="dropdown" data-dropdown="dropdown">
+                <a href="javascript:;" class="dropdown-toggle"><?=Session::get('name')?></a>
+                <ul class="dropdown-menu">
+                  <li><a href="<?=BASE_PATH?>/settings">Settings</a></li>
+                  <li class="divider"></li>
+                  <li><a href="<?=BASE_PATH?>/pages/logout">Logout</a></li>
+                </ul>
+              </li>
+            </ul>
+          <?php endif ?>
         </div>
       </div>
     </div>

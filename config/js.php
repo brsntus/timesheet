@@ -5,7 +5,9 @@ $__js['development'] = array(
   'bootstrap-dropdown',
   'bootstrap-modal',
   'bootstrap-alerts',
-  'bootstrap-tabs'
+  'bootstrap-tabs',
+  'jquery.blockUI',
+  'jquery.form'
 );
 
 $__js['production'] = $__js['development'];
