@@ -77,11 +77,7 @@
                   <div class="clearfix">
                     <label for="hours_per_day">Daily work hours</label>
                     <div class="input">
-                      <select class="span6" id="hours_per_day" name="hours_per_day">
-                        <option></option>
-                        <option value="6">6 hours</option>
-                        <option value="8">8 hours</option>
-                      </select>
+                      <?=Helper::hours_per_day_select()?>
                     </div>
                   </div><!-- /clearfix -->
                   

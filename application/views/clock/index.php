@@ -82,15 +82,14 @@
                 <?php
                 $h = intval(substr($total_hours[$dotw], 0, 2));
                 $m = intval(substr($total_hours[$dotw], 3, 2));
+                $hm = ($h*60+$m)/60;
                 $class = 'blue';
-                if ($h > Session::get('hours_per_day')) {
+                if ($hm > Session::get('hours_per_day')) {
                   $class = 'green';
-                } else if ($h < Session::get('hours_per_day')) {
+                } else if ($hm < Session::get('hours_per_day')) {
                   $class = 'red';
-                } else if ($h == Session::get('hours_per_day')) {
-                  if ($m > 0) {
-                    $class = 'green';
-                  }
+                } else if ($hm == Session::get('hours_per_day')) {
+                  $class = 'blue';
                 }
                 ?>
                 <td style="text-align:center;" class="<?=$class?>"><strong><?=$total_hours[$dotw]?></strong></td>

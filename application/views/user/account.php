@@ -51,8 +51,7 @@
           <div class="clearfix">
             <label for="hours_per_day">Daily work hours</label>
             <div class="input">
-              <?=HTML::select('hours_per_day', array('6' => '6 hours', '8' => '8 hours'), array('selected' => Session::get('hours_per_day'), 'class' => 'span6'))?>
-              
+              <?=Helper::hours_per_day_select(Session::get('hours_per_day'))?>
             </div>
           </div><!-- /clearfix -->
           

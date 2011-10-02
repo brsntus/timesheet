@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <title>Timesheet</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Timesheet">
+    <meta name="author" content="Bruno Santos">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
@@ -75,9 +75,9 @@
           <a class="brand" href="<?=BASE_PATH?>">Timesheet</a>
           <?php if (Helper::is_logged_in()): ?>
             <ul class="nav">
-              <li <?=$this->_controller == 'Clock' ? 'class="active"' : ''?>><a href="<?=BASE_PATH?>/clock">Clock In/Out</a></li>
-              <li <?=$this->_controller == 'Timesheet' ? 'class="active"' : ''?>><a href="<?=BASE_PATH?>/timesheet">Timesheet</a></li>
-              <li <?=$this->_controller == 'Report' ? 'class="active"' : ''?>><a href="<?=BASE_PATH?>/report">Reports</a></li>
+              <li <?=isset($this) ? ($this->_controller == 'Clock' ? 'class="active"' : '') : ''?>><a href="<?=BASE_PATH?>/clock">Clock In/Out</a></li>
+              <li <?=isset($this) ? ($this->_controller == 'Timesheet' ? 'class="active"' : '') : ''?>><a href="<?=BASE_PATH?>/timesheet">Timesheet</a></li>
+              <li <?=isset($this) ? ($this->_controller == 'Report' ? 'class="active"' : '') : ''?>><a href="<?=BASE_PATH?>/report">Reports</a></li>
             </ul>
             <ul class="nav secondary-nav">
               <li class="dropdown" data-dropdown="dropdown">
