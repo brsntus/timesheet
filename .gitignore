@@ -3,5 +3,6 @@
 public/uploads/*
 ._*
 config/development.php
+config/production.php
 config/config.php
 tmp/
