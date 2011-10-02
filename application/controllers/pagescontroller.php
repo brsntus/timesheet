@@ -21,7 +21,7 @@ class PagesController extends AppController {
   
   function do_login() {
     if (isset($_POST) && $_POST) {
-      $users = new Users();
+      $users = new User();
       if ($users->check_credentials($_POST)) {
         Helper::do_login((array)$users->find_by_email($_POST['email']), (bool)(isset($_POST['keep_me_logged_in']) && $_POST['keep_me_logged_in'] == 1));
       }
@@ -38,7 +38,7 @@ class PagesController extends AppController {
   function save_register() {
     $errors = array();
     if (isset($_POST) && !empty($_POST)) {
-      $user = new Users();
+      $user = new User();
       $user_data = $user->create($_POST);
       if ($user_data) {
         Helper::do_login($user_data);

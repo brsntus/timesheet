@@ -6,7 +6,7 @@ class AppController extends Controller {
   
   function _check_login() {
     if (!Helper::is_logged_in()) {
-      Helper::redirect('?not_logged_in');
+      Helper::redirect('/401');
     }
   }
 }

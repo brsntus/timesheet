@@ -27,7 +27,7 @@ class Helper {
   }
   
   public static function check_salt($salt) {
-    $users = new Users();
+    $users = new User();
     return $users->check_salt($salt);
   }
   
@@ -35,7 +35,7 @@ class Helper {
     if (isset($_COOKIE[COOKIE_NAME])) {
       $salt = self::check_salt(strval($_COOKIE[COOKIE_NAME]));
       if ($salt) {
-        $users = new Users();
+        $users = new User();
         self::do_login((array)$users->find_by_email($salt), true);
       }
     }
@@ -223,6 +223,9 @@ class Helper {
     // in total, but we're interested in *minutes past the hour* and to get
     // this, we have to divide by 60 again and then use the remainder
     $minutes = intval(($sec / 60) % 60); 
+    if ($minutes < 0) {
+      $minutes *= -1;
+    }
 
     // add minutes to $hms (with a leading 0 if needed)
     $hms .= str_pad($minutes, 2, "0", STR_PAD_LEFT). ":";
@@ -230,6 +233,9 @@ class Helper {
     // seconds past the minute are found by dividing the total number of seconds
     // by 60 and using the remainder
     $seconds = intval($sec % 60); 
+    if ($seconds < 0) {
+      $seconds *= -1;
+    }
 
     // add seconds to $hms (with a leading 0 if needed)
     $hms .= str_pad($seconds, 2, "0", STR_PAD_LEFT);
@@ -242,5 +248,37 @@ class Helper {
     list($h, $m, $s) = explode(':', $hours);
     return ($h*60*60) + ($m*60) + $s;
   }
+  
+  public static function calendar($start, $end) {
+    // Firstly, format the provided dates.
+    // This function works best with YYYY-MM-DD
+    // but other date formats will work thanks
+    // to strtotime().
+    $start = date("Y-m-d", strtotime($start));
+    $end = date("Y-m-d", strtotime($end));
+
+    // Start the variable off with the start date
+    $days[] = $start;
+
+    // Set a 'temp' variable, sCurrentDate, with
+    // the start date - before beginning the loop
+    $current_date = $start;
+
+    // While the current date is less than the end date
+    while($current_date < $end) {
+      // Add a day to the current date
+      $current_date = date("Y-m-d", strtotime("+1 day", strtotime($current_date)));
+
+      // Add this new day to the days array
+      $days[] = $current_date;
+    }
+
+    // Once the loop has finished, return the
+    // array of days.
+    return $days;
+  }
+  
+  
+  
 }
 ?>

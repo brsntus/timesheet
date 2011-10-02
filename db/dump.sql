@@ -1,88 +1,97 @@
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
+# ************************************************************
+# Sequel Pro SQL dump
+# Version 3348
+#
+# http://www.sequelpro.com/
+# http://code.google.com/p/sequel-pro/
+#
+# Host: localhost (MySQL 5.1.44)
+# Database: timesheet
+# Generation Time: 2011-10-02 13:35:14 -0300
+# ************************************************************
 
 
--- -----------------------------------------------------
--- Table `user`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `user` ;
-
-CREATE  TABLE IF NOT EXISTS `user` (
-  `id` INT NOT NULL AUTO_INCREMENT ,
-  `email` VARCHAR(45) NOT NULL ,
-  `password` VARCHAR(40) NOT NULL ,
-  `name` VARCHAR(100) NOT NULL ,
-  `hour_rate` DOUBLE(10,2) NOT NULL DEFAULT 0 ,
-  `hours_per_day` TINYINT(1) NOT NULL DEFAULT 8 ,
-  `salary` DOUBLE(10,2) NOT NULL ,
-  `hour_percent` DOUBLE(10,2) NOT NULL DEFAULT 50 ,
-  PRIMARY KEY (`id`) ,
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC) )
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
--- -----------------------------------------------------
--- Table `timesheet`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `timesheet` ;
+# Dump of table clock
+# ------------------------------------------------------------
 
-CREATE  TABLE IF NOT EXISTS `timesheet` (
-  `id` INT NOT NULL AUTO_INCREMENT ,
-  `task` TEXT NOT NULL ,
-  `hours` TIME NOT NULL DEFAULT '00:00' ,
-  `user_id` INT NOT NULL ,
-  `timer_on` TINYINT(1)  NOT NULL DEFAULT 0 ,
-  `timer_started_at` DATETIME NULL ,
-  PRIMARY KEY (`id`) ,
-  INDEX `fk_timesheet_user` (`user_id` ASC) ,
-  CONSTRAINT `fk_timesheet_user`
-    FOREIGN KEY (`user_id` )
-    REFERENCES `user` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8, 
-COMMENT = 'In this table we store the tasks accomplished by the user an' /* comment truncated */ ;
+DROP TABLE IF EXISTS `clock`;
 
-
--- -----------------------------------------------------
--- Table `clock`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `clock` ;
-
-CREATE  TABLE IF NOT EXISTS `clock` (
-  `id` INT NOT NULL AUTO_INCREMENT ,
-  `clock_date` DATE NOT NULL ,
-  `clock_time` TIME NOT NULL ,
-  `user_id` INT NOT NULL ,
-  PRIMARY KEY (`id`) ,
-  INDEX `fk_clock_user1` (`user_id` ASC) ,
-  CONSTRAINT `fk_clock_user1`
-    FOREIGN KEY (`user_id` )
-    REFERENCES `user` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `holiday`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `holiday` ;
-
-CREATE  TABLE IF NOT EXISTS `holiday` (
-  `id` INT NOT NULL AUTO_INCREMENT ,
-  `title` VARCHAR(100) NOT NULL ,
-  `when` DATE NOT NULL ,
-  PRIMARY KEY (`id`) )
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+CREATE TABLE `clock` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `clock_date` date NOT NULL,
+  `clock_time` time NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_clock_user1` (`user_id`),
+  CONSTRAINT `fk_clock_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8;
 
 
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+# Dump of table holiday
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `holiday`;
+
+CREATE TABLE `holiday` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL,
+  `holiday_date` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+
+
+# Dump of table timesheet
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `timesheet`;
+
+CREATE TABLE `timesheet` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `task` text NOT NULL,
+  `task_date` date NOT NULL,
+  `hours` time NOT NULL DEFAULT '00:00:00',
+  `user_id` int(11) NOT NULL,
+  `timer_on` tinyint(1) NOT NULL DEFAULT '0',
+  `timer_started_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_timesheet_user` (`user_id`),
+  CONSTRAINT `fk_timesheet_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=147 DEFAULT CHARSET=utf8 COMMENT='In this table we store the tasks accomplished by the user an';
+
+
+
+# Dump of table user
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `user`;
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(45) NOT NULL,
+  `password` varchar(40) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `hours_per_day` tinyint(1) NOT NULL DEFAULT '8',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email_UNIQUE` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+
+
+
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

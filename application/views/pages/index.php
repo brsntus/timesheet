@@ -1,7 +1,8 @@
       <div class="row">
         <div class="span7 offset-one-third">
-          <h1>No, motherfucker</h1>
-          <p>Do you see any Teletubbies in here? Do you see a slender plastic tag clipped to my shirt with my name printed on it? Do you see a little Asian child with a blank expression on his face sitting outside on a mechanical helicopter that shakes when you put quarters in it? No? Well, that's what you see at a toy store. And you must think you're in a toy store, because you're here shopping for an infant named Jeb.</p>
+          <h1>Timesheet</h1>
+          <p>Sign in using the form below, or sign up if you don't have an account yet.</p>
+          <p>&nbsp;</p>
           <ul class="tabs" data-tabs="tabs">
             <li <?=((isset($active_tab) && $active_tab == 'sign-in') || !isset($active_tab)) ? 'class="active"' : ''?>><a href="#sign-in">Sign In</a></li>
             <li <?=(isset($active_tab) && $active_tab == 'sign-up') ? 'class="active"' : '' ?>><a href="#sign-up">Sign Up</a></li>
@@ -30,8 +31,10 @@
                       <input class="span6" id="password" name="password" size="30" type="password">
                     </div>
                   </div><!-- /clearfix -->
-                  <input type="checkbox" name="keep_me_logged_in" value="1" id="keep_me_logged_in" checked="checked">
-                  <label for="keep_me_logged_in">Keep me logged in</label>
+                  <div class="clearfix">
+                    <input type="checkbox" name="keep_me_logged_in" value="1" id="keep_me_logged_in" checked="checked" style="float:left;">
+                    <label for="keep_me_logged_in">&nbsp;Keep me logged in</label>
+                  </div><!-- /clearfix -->                  
                 </fieldset>
                 <div class="actions">
                   <button type="submit" class="btn primary">Sign In</button>
@@ -50,7 +53,7 @@
                   <div class="clearfix">
                     <label for="name">Name</label>
                     <div class="input-prepend">
-                      <span class="add-on">@</span>
+                      <span class="add-on">A</span>
                       <input class="span6" id="name" name="name" size="30" type="text">
                     </div>
                   </div><!-- /clearfix -->
@@ -71,31 +74,16 @@
                     </div>
                   </div><!-- /clearfix -->
                   
-                  <div class="row">
-                    <div class="span3">
-                      <div class="clearfix">
-                        <label for="salary">Salary</label>
-                        <div class="input-prepend">
-                          <span class="add-on">$</span>
-                          <input class="span2" id="salary" name="salary" size="15" type="text">
-                        </div>
-                      </div><!-- /clearfix -->
+                  <div class="clearfix">
+                    <label for="hours_per_day">Daily work hours</label>
+                    <div class="input">
+                      <select class="span6" id="hours_per_day" name="hours_per_day">
+                        <option></option>
+                        <option value="6">6 hours</option>
+                        <option value="8">8 hours</option>
+                      </select>
                     </div>
-                    
-                    <div class="span3">
-                      <div class="clearfix">
-                        <label for="hours_per_day">Daily work hours</label>
-                        <div class="input">
-                          <!--input class="span2" id="hours_per_day" name="hours_per_day" size="15" type="text"-->
-                          <select class="span3" id="hours_per_day" name="hours_per_day">
-                            <option></option>
-                            <option value="6">6 hours</option>
-                            <option value="8">8 hours</option>
-                          </select>
-                        </div>
-                      </div><!-- /clearfix -->
-                    </div>
-                  </div>
+                  </div><!-- /clearfix -->
                   
                 </fieldset>
                 <div class="actions">

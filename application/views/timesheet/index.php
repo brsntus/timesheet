@@ -52,10 +52,6 @@
   </div>
 </div>
 
-<div id="teste_legal">
-  
-</div>
-
 <div id="modal_container" class="modal hide fade"></div>
 
 <?=HTML::includeJs('jquery.countdown.pack')?>

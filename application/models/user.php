@@ -1,5 +1,5 @@
 <?php
-class Users extends Model {
+class User extends Model {
   function create($data) {
     $data['password'] = sha1($data['password']);
     $data['salt'] = sha1(sha1(APPLICATION_SALT).sha1($data['email']));
@@ -7,7 +7,6 @@ class Users extends Model {
     if (!$monthly_hours) {
       return false;
     }
-    $data['hour_rate'] = $data['salary'] / $monthly_hours;
     if (DB::write()->AutoExecute('user', $data, 'INSERT')) {
       $data['id'] = DB::write()->Insert_ID();
       return $data;
@@ -48,6 +47,10 @@ class Users extends Model {
       return $rs->FetchObject(false);
     }
     return false;
+  }
+  
+  function save($data) {
+    return DB::write()->AutoExecute('user', $data, 'UPDATE', 'id = '.Session::get('id'));
   }
 }
 ?>
