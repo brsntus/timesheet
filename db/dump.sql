@@ -78,8 +78,9 @@ DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(45) NOT NULL,
+  `email` varchar(100) NOT NULL,
   `password` varchar(40) NOT NULL,
+  `salt` varchar(40) NOT NULL,
   `name` varchar(100) NOT NULL,
   `hours_per_day` double(10,2) NOT NULL DEFAULT '8.00',
   PRIMARY KEY (`id`),

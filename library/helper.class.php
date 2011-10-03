@@ -9,7 +9,7 @@ class Helper {
     foreach ($data as $key => $value) {
       Session::set($key, $value);
     }
-    
+
     if ($keep_logged_in)
       $expire = SESSION_TIMEOUT_LONG + time();
     else
