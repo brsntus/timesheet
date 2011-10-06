@@ -43,18 +43,6 @@
         margin: -20px -20px 20px;
       }
 
-      /* Styles you shouldn't keep as they are for displaying this base example only */
-      /*.content .span10,
-      .content .span4 {
-        min-height: 500px;
-      }*/
-      /* Give a quick and non-cross-browser friendly divider */
-      /*.content .span4 {
-        margin-left: 0;
-        padding-left: 19px;
-        border-left: 1px solid #eee;
-      }*/
-
       .topbar .btn {
         border: 0;
       }
@@ -74,21 +62,7 @@
         <div class="container">
           <a class="brand" href="<?=BASE_PATH?>">Timesheet</a>
           <?php if (Helper::is_logged_in()): ?>
-            <ul class="nav">
-              <li <?=isset($this) ? ($this->_controller == 'Clock' ? 'class="active"' : '') : ''?>><a href="<?=BASE_PATH?>/clock">Clock In/Out</a></li>
-              <li <?=isset($this) ? ($this->_controller == 'Timesheet' ? 'class="active"' : '') : ''?>><a href="<?=BASE_PATH?>/timesheet">Timesheet</a></li>
-              <li <?=isset($this) ? ($this->_controller == 'Report' ? 'class="active"' : '') : ''?>><a href="<?=BASE_PATH?>/report">Reports</a></li>
-            </ul>
-            <ul class="nav secondary-nav">
-              <li class="dropdown" data-dropdown="dropdown">
-                <a href="javascript:;" class="dropdown-toggle"><?=Session::get('name')?></a>
-                <ul class="dropdown-menu">
-                  <li><a href="<?=BASE_PATH?>/user/account">My Account</a></li>
-                  <li class="divider"></li>
-                  <li><a href="<?=BASE_PATH?>/pages/logout">Logout</a></li>
-                </ul>
-              </li>
-            </ul>
+            <?php require(ROOT . DS . 'application' . DS . 'views' . DS . '_menu_' . Session::get('type') . '.php'); ?>
           <?php endif ?>
         </div>
       </div>

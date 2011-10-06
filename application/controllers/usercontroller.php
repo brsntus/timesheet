@@ -1,5 +1,9 @@
 <?php
 class UserController extends AppController {
+  function index() {
+    echo 'opa!!!';
+  }
+
   function account() {
     echo $this->render();
   }

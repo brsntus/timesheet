@@ -1,8 +1,8 @@
 <?php
 class Controller {	
-	private $_controller;
-	private $_action;
-	private $_variables = array();
+	protected $_controller;
+	protected $_action;
+	protected $_variables = array();
 	
   /**
    * public ${before|after}_filter = array(

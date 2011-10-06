@@ -6,6 +6,8 @@ $url = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : null;
 
 define('APPLICATION_ENV', getenv('APPLICATION_ENV'));
 
+$__ACL = include(ROOT . DS . 'config' . DS . 'acl.php');
+
 require_once(ROOT . DS . 'config' . DS . 'config.php');
 require_once(ROOT . DS . 'config' . DS . APPLICATION_ENV . '.php');
 require_once(ROOT . DS . 'config' . DS . 'js.php');

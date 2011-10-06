@@ -49,15 +49,5 @@ class PagesController extends AppController {
     $this->set('register_error', 'There was an error with your register');    
     echo $this->render('pages/index');
   }
-  
-  
-  
-  function clock_in() {
-    echo $this->render();
-  }
-  
-  function timesheet() {
-    echo $this->render();
-  }  
 }
 ?>

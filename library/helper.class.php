@@ -1,10 +1,6 @@
 <?php
 class Helper {
   public static function do_login($data, $keep_logged_in = false) {
-    /*Session::set('id', $data['id']);
-    Session::set('name', $data['name']);
-    Session::set('email', $data['email']);
-    Session::set('salt', $data['salt']);*/
     unset($data['password']);
     foreach ($data as $key => $value) {
       Session::set($key, $value);
@@ -14,9 +10,8 @@ class Helper {
       $expire = SESSION_TIMEOUT_LONG + time();
     else
       $expire = SESSION_TIMEOUT_SHORT + time();
-
+    
     setcookie(COOKIE_NAME, $data['salt'], $expire, '/');
-
     self::redirect('/clock');
   }
   
@@ -36,11 +31,11 @@ class Helper {
       $salt = self::check_salt(strval($_COOKIE[COOKIE_NAME]));
       if ($salt) {
         $users = new User();
-        self::do_login((array)$users->find_by_email($salt), true);
+        self::do_login((array)$users->find_by_salt($salt), true);
       }
     }
     
-    //return false;
+    return false;
   }
   
   public static function is_logged_in() {

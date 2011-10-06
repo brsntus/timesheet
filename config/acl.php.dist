@@ -1,0 +1,27 @@
+<?php 
+return array(
+  'employee' => array(
+    'clock' => true,
+    'timesheet' => true,
+    'user' => array('account', 'save'),
+    'report' => true,
+    'holiday' => false
+  ),
+
+  'boss' => array(
+    'clock' => false,
+    'timesheet' => false,
+    'user' => array('account', 'save', 'index'),
+    'report' => true,
+    'holiday' => false
+  ),
+
+  'admin' => array(
+    'clock' => true,
+    'timesheet' => true,
+    'user' => true,
+    'report' => true,
+    'holiday' => true
+  )
+);
+?>

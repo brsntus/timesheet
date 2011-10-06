@@ -43,7 +43,8 @@
             </div>
             
             <div id="sign-up" <?=(isset($active_tab) && $active_tab == 'sign-up') ? 'class="active"' : '' ?>>
-              <?php if (isset($register_error)): ?>
+              <?php if (SIGN_UP_ACTIVE): ?>
+                <?php if (isset($register_error)): ?>
                 <div class="alert-message error">
                   <p><?=$register_error?></p>
                 </div>
@@ -80,12 +81,15 @@
                       <?=Helper::hours_per_day_select()?>
                     </div>
                   </div><!-- /clearfix -->
-                  
                 </fieldset>
                 <div class="actions">
                   <button type="submit" class="btn primary">Sign Up</button>
                 </div>
               </form>
+              <?php else: ?>
+                <p>The sign up process is currently disabled.</p>
+                <p>If you want to create an account, please send an email to the site administrator.</p>
+              <?php endif ?>
             </div>
           </div>
         </div>

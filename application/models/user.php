@@ -1,8 +1,9 @@
 <?php
 class User extends Model {
-  function create($data) {
+  function create($data, $type = 'employee') {
     $data['password'] = sha1($data['password']);
     $data['salt'] = sha1(sha1(APPLICATION_SALT).sha1($data['email']));
+    $data['type'] = $type;
     $monthly_hours = Helper::monthly_hours($data['hours_per_day']);
     if (!$monthly_hours) {
       return false;
@@ -35,6 +36,14 @@ class User extends Model {
   
   function find_by_email($email) {
     $rs = DB::read()->Execute('SELECT * FROM user WHERE email = ? LIMIT 1', array($email));
+    if ($rs && $rs->RecordCount()) {
+      return $rs->FetchObject(false);
+    }
+    return false;
+  }
+  
+  function find_by_salt($salt) {
+    $rs = DB::read()->Execute('SELECT * FROM user WHERE salt = ? LIMIT 1', array($salt));
     if ($rs && $rs->RecordCount()) {
       return $rs->FetchObject(false);
     }

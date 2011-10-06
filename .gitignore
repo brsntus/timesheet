@@ -5,4 +5,5 @@ public/uploads/*
 config/development.php
 config/production.php
 config/config.php
+config/acl.php
 tmp/
