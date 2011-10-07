@@ -1,8 +1,14 @@
 <?php
 class Report extends Model {
-  function get_report($start, $end) {
-    //$start = date('Y-m-d', mktime(0, 0, 0, 8, 25, 2011));
-    //$end = date('Y-m-d', mktime(0, 0, 0, 9, 24, 2011));
+  function get_report($start, $end, $user_id) {
+    if ($user_id) {
+      $user = new User();
+      $hours_per_day = $user->get_hours_per_day($user_id);
+    } else {
+      $user_id = Session::get('id');
+      $hours_per_day = Session::get('hours_per_day');
+    }
+
     $calendar = Helper::calendar($start, $end);
     
     $sql = "SELECT * FROM holiday WHERE holiday_date >= ? AND holiday_date <= ? ORDER BY holiday_date ASC";
@@ -16,7 +22,7 @@ class Report extends Model {
     }
     
     $sql = "SELECT * FROM clock WHERE user_id = ? AND clock_date >= ? AND clock_date <= ? ORDER BY clock_date ASC, clock_time ASC";
-    $rs = DB::read()->Execute($sql, array(Session::get('id'), $start, $end));
+    $rs = DB::read()->Execute($sql, array($user_id, $start, $end));
     $clocks = array();
     if ($rs && $rs->RecordCount()) {
       while ($clock = $rs->FetchNextObject(false)) {
@@ -53,13 +59,13 @@ class Report extends Model {
           $total_extra_hours += $total_hours[$date];
           $extra_hours[$date] = Helper::seconds_to_hours($total_hours[$date]);
         } else {
-          $total_extra_hours += $total_hours[$date] - (Session::get('hours_per_day')*60*60);
-          $extra_hours[$date] = Helper::seconds_to_hours($total_hours[$date] - (Session::get('hours_per_day')*60*60));
+          $total_extra_hours += $total_hours[$date] - ($hours_per_day*60*60);
+          $extra_hours[$date] = Helper::seconds_to_hours($total_hours[$date] - ($hours_per_day*60*60));
         }
       } else {
         if (!$extra) {
-          $total_extra_hours -= Session::get('hours_per_day')*60*60;
-          $extra_hours[$date] = Helper::seconds_to_hours(Session::get('hours_per_day')*60*60*-1);
+          $total_extra_hours -= $hours_per_day*60*60;
+          $extra_hours[$date] = Helper::seconds_to_hours($hours_per_day*60*60*-1);
         }
       }
     }
@@ -70,10 +76,11 @@ class Report extends Model {
     }
     
     $sql = "SELECT * FROM timesheet WHERE user_id = ? AND task_date >= ? AND task_date <= ? ORDER BY task_date ASC, id ASC";
-    $rs = DB::read()->Execute($sql, array(Session::get('id'), $start, $end));
+    $rs = DB::read()->Execute($sql, array($user_id, $start, $end));
     $timesheets = array();
     if ($rs && $rs->RecordCount()) {
       while ($timesheet = $rs->FetchNextObject(false)) {
+        $timesheet->task = stripslashes($timesheet->task);
         $timesheets[$timesheet->task_date][] = $timesheet;
       }
     }

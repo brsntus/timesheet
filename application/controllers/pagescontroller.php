@@ -9,7 +9,7 @@ class PagesController extends AppController {
   
   function _check_login() {
     if (Helper::is_logged_in()) {
-      Helper::redirect('/clock');
+      Helper::redirect_home();
     } else {
       Helper::check_cookie();
     }

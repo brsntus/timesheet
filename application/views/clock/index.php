@@ -1,6 +1,6 @@
 <div class="content">
   <div class="page-header">
-    <h1>Clock In/Out <small>Supporting text or tagline</small></h1>
+    <h1>Clock In/Out</h1>
   </div>
   <div class="row">
     <div class="span14">

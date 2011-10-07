@@ -61,5 +61,38 @@ class User extends Model {
   function save($data) {
     return DB::write()->AutoExecute('user', $data, 'UPDATE', 'id = '.Session::get('id'));
   }
+
+  function get_hours_per_day($id) {
+    $rs = DB::read()->Execute('SELECT hours_per_day FROM user WHERE id = ? LIMIT 1', array($id));
+    if ($rs && $rs->RecordCount()) {
+      return $rs->Fields('hours_per_day');
+    }
+    return 0;
+  }
+
+  function get_name($id) {
+    $rs = DB::read()->Execute('SELECT name FROM user WHERE id = ? LIMIT 1', array($id));
+    if ($rs && $rs->RecordCount()) {
+      return $rs->Fields('name');
+    }
+    return 'No Name';
+  }
+
+  function get_users($type = false) {
+    $users = array();
+
+    $sql = "SELECT * FROM user";
+    if ($type) {
+      $sql .= " WHERE type = '{$type}'";
+    }
+
+    $rs = DB::read()->Execute($sql);
+    if ($rs && $rs->RecordCount()) {
+      while ($user = $rs->FetchNextObject(false)) {
+        $users[] = $user;
+      }
+    }
+    return $users;
+  }
 }
 ?>

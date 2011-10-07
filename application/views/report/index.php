@@ -1,6 +1,6 @@
 <div class="content">
   <div class="page-header">
-    <h1>Report <small>Supporting text or tagline</small></h1>
+    <h1>Report</h1>
   </div>
   <div class="row">
     <div class="span10">

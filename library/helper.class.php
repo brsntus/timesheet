@@ -12,7 +12,7 @@ class Helper {
       $expire = SESSION_TIMEOUT_SHORT + time();
     
     setcookie(COOKIE_NAME, $data['salt'], $expire, '/');
-    self::redirect('/clock');
+    self::redirect_home();
   }
   
   public static function do_logout() {
@@ -57,6 +57,23 @@ class Helper {
   
   public static function redirect_back() {
     self::redirect($_SERVER['HTTP_REFERER'], false);
+  }
+
+  public static function redirect_home() {
+    $location = '/404';
+    switch (Session::get('type')) {
+      case 'employee':
+        $location = '/clock';
+        break;
+      case 'boss':
+        $location = '/report/employees';
+        break;
+      case 'admin':
+        $location = '/user';
+        break;
+    }
+
+    self::redirect($location);
   }
   
   public static function is_ajax() {
