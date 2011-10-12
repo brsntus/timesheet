@@ -33,32 +33,32 @@
           <?php foreach ($report['timesheets'][$date] as $timesheets): ?>          
             <?php if ($first): ?>
               <?php $first = false; ?>
-              <tr bgclor="<?=$type?>">
-                <td rowspan="<?=$rowspan?>" style="vertical-align:middle;text-align:center;"><?=$timesheets->task_date?></td>
-                <td><?=$timesheets->task?></td>
+              <tr>
+                <td bgclor="<?=$type?>" rowspan="<?=$rowspan?>" style="vertical-align:middle;text-align:center;"><?=$timesheets->task_date?></td>
+                <td bgclor="<?=$type?>"><?=$timesheets->task?></td>
                 <?php for ($i=0; $i < $report['clocks_columns']; $i=$i+2) { ?>
-                  <td rowspan="<?=$rowspan?>" style="vertical-align:middle;text-align:center;"><?=@$report['clocks'][$date][$i] ? $report['clocks'][$date][$i]->clock_time : '-'?></td>
-                  <td rowspan="<?=$rowspan?>" style="vertical-align:middle;text-align:center;"><?=@$report['clocks'][$date][$i+1] ? $report['clocks'][$date][$i+1]->clock_time : '-'?></td>
+                  <td bgclor="<?=$type?>" rowspan="<?=$rowspan?>" style="vertical-align:middle;text-align:center;"><?=@$report['clocks'][$date][$i] ? $report['clocks'][$date][$i]->clock_time : '-'?></td>
+                  <td bgclor="<?=$type?>" rowspan="<?=$rowspan?>" style="vertical-align:middle;text-align:center;"><?=@$report['clocks'][$date][$i+1] ? $report['clocks'][$date][$i+1]->clock_time : '-'?></td>
                 <?php } ?>
-                <td rowspan="<?=$rowspan?>" style="vertical-align:middle;text-align:center;"><?=$report['total_hours'][$date]?></td>
-                <td rowspan="<?=$rowspan?>" style="vertical-align:middle;text-align:center;"><?=$report['extra_hours'][$date]?></td>
+                <td bgclor="<?=$type?>" rowspan="<?=$rowspan?>" style="vertical-align:middle;text-align:center;"><?=$report['total_hours'][$date]?></td>
+                <td bgclor="<?=$type?>" rowspan="<?=$rowspan?>" style="vertical-align:middle;text-align:center;"><?=$report['extra_hours'][$date]?></td>
               </tr>
             <?php else: ?>
               <tr>
-                <td><?=$timesheets->task?></td>
+                <td bgclor="<?=$type?>"><?=$timesheets->task?></td>
               </tr>
             <?php endif ?>
           <?php endforeach ?>
         <?php else: ?>
-          <tr bgcolor="<?=$type?>">
-            <td align="center"><?=$date?></td>
-            <td>&nbsp;</td>
+          <tr>
+            <td bgcolor="<?=$type?>" align="center"><?=$date?></td>
+            <td bgcolor="<?=$type?>">&nbsp;</td>
             <?php for ($i=0; $i < $report['clocks_columns']; $i=$i+2) { ?>
-              <td style="vertical-align:middle;text-align:center;"><?=@$report['clocks'][$date][$i] ? $report['clocks'][$date][$i]->clock_time : '-'?></td>
-              <td style="vertical-align:middle;text-align:center;"><?=@$report['clocks'][$date][$i+1] ? $report['clocks'][$date][$i+1]->clock_time : '-'?></td>
+              <td bgcolor="<?=$type?>" style="vertical-align:middle;text-align:center;"><?=@$report['clocks'][$date][$i] ? $report['clocks'][$date][$i]->clock_time : '-'?></td>
+              <td bgcolor="<?=$type?>" style="vertical-align:middle;text-align:center;"><?=@$report['clocks'][$date][$i+1] ? $report['clocks'][$date][$i+1]->clock_time : '-'?></td>
             <?php } ?>
-            <td style="vertical-align:middle;text-align:center;"><?=$report['total_hours'][$date]?></td>
-            <td style="vertical-align:middle;text-align:center;"><?=$report['extra_hours'][$date]?></td>
+            <td bgcolor="<?=$type?>" style="vertical-align:middle;text-align:center;"><?=$report['total_hours'][$date]?></td>
+            <td bgcolor="<?=$type?>" style="vertical-align:middle;text-align:center;"><?=$report['extra_hours'][$date]?></td>
           </tr>
         <?php endif ?>
       <?php else: ?>
@@ -68,15 +68,15 @@
           $msg = 'Missed work';
         }
         ?>
-        <tr bgcolor="<?=$type?>">
-          <td align="center" valign="middle"><?=$date?></td>
-          <td><?=$msg?></td>
+        <tr>
+          <td bgcolor="<?=$type?>" align="center" valign="middle"><?=$date?></td>
+          <td bgcolor="<?=$type?>"><?=$msg?></td>
           <?php for ($i=0; $i < $report['clocks_columns']; $i=$i+2) { ?>
-            <td style="vertical-align:middle;text-align:center;">-</td>
-            <td style="vertical-align:middle;text-align:center;">-</td>
+            <td bgcolor="<?=$type?>" style="vertical-align:middle;text-align:center;">-</td>
+            <td bgcolor="<?=$type?>" style="vertical-align:middle;text-align:center;">-</td>
           <?php } ?>
-          <td style="vertical-align:middle;text-align:center;"><?=@$report['total_hours'][$date] ? $report['total_hours'][$date] : '00:00:00'?></td>
-          <td style="vertical-align:middle;text-align:center;"><?=@$report['extra_hours'][$date] ? $report['extra_hours'][$date] : '00:00:00'?></td>
+          <td bgcolor="<?=$type?>" style="vertical-align:middle;text-align:center;"><?=@$report['total_hours'][$date] ? $report['total_hours'][$date] : '00:00:00'?></td>
+          <td bgcolor="<?=$type?>" style="vertical-align:middle;text-align:center;"><?=@$report['extra_hours'][$date] ? $report['extra_hours'][$date] : '00:00:00'?></td>
         </tr>
       <?php endif ?>
     <?php endforeach ?>
