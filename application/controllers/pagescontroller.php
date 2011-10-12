@@ -23,7 +23,8 @@ class PagesController extends AppController {
     if (isset($_POST) && $_POST) {
       $users = new User();
       if ($users->check_credentials($_POST)) {
-        Helper::do_login((array)$users->find_by_email($_POST['email']), (bool)(isset($_POST['keep_me_logged_in']) && $_POST['keep_me_logged_in'] == 1));
+        //Helper::do_login((array)$users->find_by_email($_POST['email']), (bool)(isset($_POST['keep_me_logged_in']) && $_POST['keep_me_logged_in'] == 1));
+        Helper::do_login((array) $users->find_by_email($_POST['email']));
       }
     }
     

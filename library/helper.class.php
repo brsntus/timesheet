@@ -1,15 +1,15 @@
 <?php
 class Helper {
-  public static function do_login($data, $keep_logged_in = false) {
+  public static function do_login($data, $keep_logged_in = true) {
     unset($data['password']);
     foreach ($data as $key => $value) {
       Session::set($key, $value);
     }
 
-    if ($keep_logged_in)
+    //if ($keep_logged_in)
       $expire = SESSION_TIMEOUT_LONG + time();
-    else
-      $expire = SESSION_TIMEOUT_SHORT + time();
+    //else
+    //  $expire = SESSION_TIMEOUT_SHORT + time();
     
     setcookie(COOKIE_NAME, $data['salt'], $expire, '/');
     self::redirect_home();

@@ -27,11 +27,8 @@ class User extends Model {
   }
   
   function check_salt($salt) {
-    $rs = DB::read()->Execute('SELECT email FROM user WHERE salt = ? LIMIT 1', array($salt));
-    if ($rs && $rs->RecordCount()) {
-      return $rs->Fields('email');
-    }
-    return false;
+    $rs = DB::read()->Execute('SELECT 1 FROM user WHERE salt = ? LIMIT 1', array($salt));
+    return $rs && $rs->RecordCount();
   }
   
   function find_by_email($email) {
