@@ -57,7 +57,6 @@ class ReportController extends AppController {
   }
 
   function get_employee($start, $end, $user) {
-    sleep(3);
     $report = $this->load_report($start, $end, $user);
     $this->set('report', $report);
     echo $this->render('report/table', false);
