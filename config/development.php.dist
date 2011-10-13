@@ -36,5 +36,5 @@ define('READ_DSN', DB_READ_TYPE.'://'.DB_READ_USERNAME.':'.DB_READ_PASSWORD.'@'.
 error_reporting(E_ALL);
 ini_set('display_errors','On');
 
-define('SIGN_UP_ACTIVE', true);
+define('SIGN_UP_ACTIVE', false);
 ?>

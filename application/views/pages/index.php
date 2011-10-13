@@ -5,7 +5,9 @@
           <p>&nbsp;</p>
           <ul class="tabs" data-tabs="tabs">
             <li <?=((isset($active_tab) && $active_tab == 'sign-in') || !isset($active_tab)) ? 'class="active"' : ''?>><a href="#sign-in">Sign In</a></li>
-            <li <?=(isset($active_tab) && $active_tab == 'sign-up') ? 'class="active"' : '' ?>><a href="#sign-up">Sign Up</a></li>
+            <?php if (SIGN_UP_ACTIVE): ?>
+              <li <?=(isset($active_tab) && $active_tab == 'sign-up') ? 'class="active"' : '' ?>><a href="#sign-up">Sign Up</a></li>
+            <?php endif ?>
           </ul>
           
           <div class="tab-content">
@@ -42,9 +44,9 @@
               </form>
             </div>
             
+            <?php if (SIGN_UP_ACTIVE): ?>
             <div id="sign-up" <?=(isset($active_tab) && $active_tab == 'sign-up') ? 'class="active"' : '' ?>>
-              <?php if (SIGN_UP_ACTIVE): ?>
-                <?php if (isset($register_error)): ?>
+              <?php if (isset($register_error)): ?>
                 <div class="alert-message error">
                   <p><?=$register_error?></p>
                 </div>
@@ -78,7 +80,7 @@
                   <div class="clearfix">
                     <label for="hours_per_day">Daily work hours</label>
                     <div class="input">
-                      <?=Helper::hours_per_day_select()?>
+                      <input class="span2" id="hours_per_day" name="hours_per_day" size="6" type="text"> <small class="help-inline">Use a . (dot) to separete the decimal values (e.g. 5.5 for 5 and 1/2 hours)</small>
                     </div>
                   </div><!-- /clearfix -->
 
@@ -93,11 +95,8 @@
                   <button type="submit" class="btn primary">Sign Up</button>
                 </div>
               </form>
-              <?php else: ?>
-                <p>The sign up process is currently disabled.</p>
-                <p>If you want to create an account, please send an email to the site administrator.</p>
-              <?php endif ?>
             </div>
+            <?php endif ?>
           </div>
         </div>
       </div>
