@@ -84,6 +84,7 @@ CREATE TABLE `user` (
   `name` varchar(100) NOT NULL,
   `hours_per_day` double(10,2) NOT NULL DEFAULT '8.00',
   `type` set('employee','boss','admin') NOT NULL DEFAULT 'employee',
+  `timezone` varchar(255) NOT NULL DEFAULT 'America/Maceio',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;

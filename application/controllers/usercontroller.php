@@ -18,6 +18,7 @@ class UserController extends AppController {
     if ($user->save($_POST)) {
       Session::set('name', $_POST['name']);
       Session::set('hours_per_day', $_POST['hours_per_day']);
+      Session::set('timezone', $_POST['timezone']);
       Session::set('show_message', 'success');
     } else {
       Session::set('show_message', 'error');

@@ -295,5 +295,17 @@ class Helper {
     $options['selected'] = $selected ? $selected : '8.00';
     return HTML::select('hours_per_day', array('5.50' => '5 and 1/2 hours', '6.00' => '6 hours', '8.00' => '8 hours'), $options);
   }
+
+  public static function timezone_select($selected = false) {
+    $timezones = DateTimeZone::listIdentifiers();
+    $tmzs = array();
+    foreach ($timezones as $tz) {
+      $tmzs[$tz] = $tz;
+    }
+
+    $options = array('selected' => $selected ? $selected : date_default_timezone_get());
+
+    return HTML::select('timezone', $tmzs, $options);
+  }
 }
 ?>

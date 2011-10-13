@@ -50,12 +50,19 @@
           
           <?php if (Session::get('type') == 'employee'): ?>
             <div class="clearfix">
-            <label for="hours_per_day">Daily work hours</label>
+              <label for="hours_per_day">Daily work hours</label>
+              <div class="input">
+                <?=Helper::hours_per_day_select(Session::get('hours_per_day'))?>
+              </div>
+            </div><!-- /clearfix -->
+          <?php endif ?>
+
+          <div class="clearfix">
+            <label for="timezone">Timezone</label>
             <div class="input">
-              <?=Helper::hours_per_day_select(Session::get('hours_per_day'))?>
+              <?=Helper::timezone_select(Session::get('timezone'))?>
             </div>
           </div><!-- /clearfix -->
-          <?php endif ?>          
         </fieldset>
         <div class="actions">
           <button type="submit" class="btn primary">Save</button>

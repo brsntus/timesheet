@@ -2,6 +2,11 @@
 ob_start("ob_gzhandler");
 
 Session::start();
+if (Session::get('timezone')) {
+	date_default_timezone_set(Session::get('timezone'));
+} else {
+	date_default_timezone_set('America/Maceio');
+}
 
 // ROTEAMENTO DAS URLS
 $queryString = array();

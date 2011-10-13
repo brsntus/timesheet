@@ -81,6 +81,13 @@
                       <?=Helper::hours_per_day_select()?>
                     </div>
                   </div><!-- /clearfix -->
+
+                  <div class="clearfix">
+                    <label for="timezone">Timezone</label>
+                    <div class="input">
+                      <?=Helper::timezone_select()?>
+                    </div>
+                  </div><!-- /clearfix -->
                 </fieldset>
                 <div class="actions">
                   <button type="submit" class="btn primary">Sign Up</button>
