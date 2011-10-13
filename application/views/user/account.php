@@ -52,7 +52,7 @@
             <div class="clearfix">
               <label for="hours_per_day">Daily work hours</label>
               <div class="input">
-                <?=Helper::hours_per_day_select(Session::get('hours_per_day'))?>
+                <input class="span2" id="hours_per_day" name="hours_per_day" size="6" type="text" value="<?=Session::get('hours_per_day')?>"> <small class="help-inline">Use a . (dot) to separete the decimal values (e.g. 5.5 for 5 and 1/2 hours)</small>
               </div>
             </div><!-- /clearfix -->
           <?php endif ?>
