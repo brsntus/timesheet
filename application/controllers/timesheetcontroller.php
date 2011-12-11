@@ -1,5 +1,5 @@
 <?php
-class TimesheetController extends Controller {
+class TimesheetController extends AppController {
   function index($date = false) {
     $date = $date ? $date : date('Y-m-d');
     $timesheet = new Timesheet();

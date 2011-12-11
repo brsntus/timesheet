@@ -10,7 +10,6 @@ class Helper {
       $expire = SESSION_TIMEOUT_LONG + time();
     //else
     //  $expire = SESSION_TIMEOUT_SHORT + time();
-    
     setcookie(COOKIE_NAME, $data['salt'], $expire, '/');
     self::redirect_home();
   }
@@ -31,10 +30,11 @@ class Helper {
       $salt = self::check_salt(strval($_COOKIE[COOKIE_NAME]));
       if ($salt) {
         $users = new User();
-        self::do_login((array)$users->find_by_salt($salt), true);
+        $data = (array)$users->find_by_salt($salt);
+        self::do_login($data, true);
       }
     }
-    
+
     return false;
   }
   
@@ -60,7 +60,6 @@ class Helper {
   }
 
   public static function redirect_home() {
-    $location = '/404';
     switch (Session::get('type')) {
       case 'employee':
         $location = '/clock';
@@ -71,8 +70,9 @@ class Helper {
       case 'admin':
         $location = '/user';
         break;
+      default:
+        $location = '/404';
     }
-
     self::redirect($location);
   }
   
@@ -300,6 +300,14 @@ class Helper {
     $options = array('selected' => $selected ? $selected : date_default_timezone_get());
 
     return HTML::select('timezone', $tmzs, $options);
+  }
+
+  public static function log($message) {
+    $file = @fopen(ROOT . DS . 'tmp' . DS . 'logs' . DS . 'timesheet.log', 'a');
+    if ($file) {
+      fwrite($file, '['.date('d/m/Y H:i:s').'] '.$message."\n");
+      fclose($file);
+    }
   }
 }
 ?>
