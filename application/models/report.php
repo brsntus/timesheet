@@ -11,8 +11,8 @@ class Report extends Model {
 
     $calendar = Helper::calendar($start, $end);
     
-    $sql = "SELECT * FROM holiday WHERE holiday_date >= ? AND holiday_date <= ? ORDER BY holiday_date ASC";
-    $rs = DB::read()->Execute($sql, array($start, $end));
+    $sql = "SELECT * FROM holiday WHERE holiday_date >= ? AND holiday_date <= ?  AND user_id IN (0, ?) ORDER BY holiday_date ASC";
+    $rs = DB::read()->Execute($sql, array($start, $end, Session::get('id')));
     
     $holidays = array();
     if ($rs && $rs->RecordCount()) {
