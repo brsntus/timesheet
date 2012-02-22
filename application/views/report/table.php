@@ -23,7 +23,7 @@
       }
       if (array_key_exists($date, $report['holidays'])) {
         $type = '#46a546';
-        $msg = $report['holidays'][$date];
+        $msg = $report['holidays'][$date]->title;
       }
       ?>
       <?php if (array_key_exists($date, $report['clocks'])): ?>

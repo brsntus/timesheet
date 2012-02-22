@@ -17,10 +17,10 @@ class Report extends Model {
     $holidays = array();
     if ($rs && $rs->RecordCount()) {
       while ($holiday = $rs->FetchNextObject(false)) {
-        $holidays[$holiday->holiday_date] = $holiday->title;
+        $holidays[$holiday->holiday_date] = $holiday;
       }
     }
-    
+
     $sql = "SELECT * FROM clock WHERE user_id = ? AND clock_date >= ? AND clock_date <= ? ORDER BY clock_date ASC, clock_time ASC";
     $rs = DB::read()->Execute($sql, array($user_id, $start, $end));
     $clocks = array();
@@ -50,14 +50,18 @@ class Report extends Model {
       }
       $total_hours[$clock_date] = $total;
     }
-    
     foreach ($calendar as $date) {
       $weekday = date('l', strtotime($date));
       $extra = ($weekday == 'Saturday' || $weekday == 'Sunday' || array_key_exists($date, $holidays));
       if (array_key_exists($date, $clocks)) {
         if ($extra) {
-          $total_extra_hours += $total_hours[$date];
-          $extra_hours[$date] = Helper::seconds_to_hours($total_hours[$date]);
+          if (array_key_exists($date, $holidays) && $holidays[$date]->half_day) {
+            $total_extra_hours += $total_hours[$date] - (($hours_per_day/2)*60*60);
+            $extra_hours[$date] = Helper::seconds_to_hours($total_hours[$date] - (($hours_per_day/2)*60*60));
+          } else {
+            $total_extra_hours += $total_hours[$date];
+            $extra_hours[$date] = Helper::seconds_to_hours($total_hours[$date]);
+          }
         } else {
           $total_extra_hours += $total_hours[$date] - ($hours_per_day*60*60);
           $extra_hours[$date] = Helper::seconds_to_hours($total_hours[$date] - ($hours_per_day*60*60));
@@ -66,7 +70,13 @@ class Report extends Model {
         if (!$extra) {
           $total_extra_hours -= $hours_per_day*60*60;
           $extra_hours[$date] = Helper::seconds_to_hours($hours_per_day*60*60*-1);
+        } else {
+          if (array_key_exists($date, $holidays) && $holidays[$date]->half_day) {
+            $total_extra_hours -= ($hours_per_day/2)*60*60;
+            $extra_hours[$date] = Helper::seconds_to_hours(($hours_per_day/2)*60*60*-1);
+          }
         }
+
       }
     }
     $total_extra_hours = Helper::seconds_to_hours($total_extra_hours);
