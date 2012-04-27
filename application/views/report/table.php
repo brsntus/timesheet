@@ -35,7 +35,7 @@
               <?php $first = false; ?>
               <tr>
                 <td bgclor="<?=$type?>" rowspan="<?=$rowspan?>" style="vertical-align:middle;text-align:center;"><?=$timesheets->task_date?></td>
-                <td bgclor="<?=$type?>"><?=$timesheets->task?></td>
+                <td bgclor="<?=$type?>"><?=nl2br($timesheets->task)?></td>
                 <?php for ($i=0; $i < $report['clocks_columns']; $i=$i+2) { ?>
                   <td bgclor="<?=$type?>" rowspan="<?=$rowspan?>" style="vertical-align:middle;text-align:center;"><?=@$report['clocks'][$date][$i] ? $report['clocks'][$date][$i]->clock_time : '-'?></td>
                   <td bgclor="<?=$type?>" rowspan="<?=$rowspan?>" style="vertical-align:middle;text-align:center;"><?=@$report['clocks'][$date][$i+1] ? $report['clocks'][$date][$i+1]->clock_time : '-'?></td>
@@ -45,7 +45,7 @@
               </tr>
             <?php else: ?>
               <tr>
-                <td bgclor="<?=$type?>"><?=$timesheets->task?></td>
+                <td bgclor="<?=$type?>"><?=nl2br($timesheets->task)?></td>
               </tr>
             <?php endif ?>
           <?php endforeach ?>
